@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnOrder =  findViewById(R.id.btn_get_taxi);
+        btnOrder = findViewById(R.id.btn_get_taxi);
 
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,11 +35,14 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
 
     }
 
+    //TODO se debrouiller pour que le bouton ne se remet pas
+
     private void configureRegisterFragement() {
+
         if (fragment == null) { //Singleton of the fragement
             fragment = new RegisterFragment();
         }
-        btnOrder.setVisibility(View.INVISIBLE);
+        btnOrder.setVisibility(View.GONE);
         getSupportFragmentManager().beginTransaction().add(R.id.main_frame_layout, fragment).commit();
     }
 

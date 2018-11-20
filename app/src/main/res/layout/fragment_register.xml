@@ -6,76 +6,83 @@
     android:background="#FFFFFF"
     tools:context=".controller.fragments.RegisterFragment">
 
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:src="@drawable/logohdpi" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logohdpi" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/titleFormStyle"
+                    android:layout_marginRight="6dp"
+                    android:text="@string/title_getaride_part1" />
+
+                <TextView
+                    style="@style/titleFormStyle"
+                    android:layout_marginRight="6dp"
+                    android:text="@string/title_getaride_part2"
+                    android:textColor="@color/colorTaxiYellow" />
+
+                <TextView
+                    style="@style/titleFormStyle"
+                    android:text="@string/title_getaride_part3" />
+
+            </LinearLayout>
+
 
             <TextView
-                style="@style/titleFormStyle"
-                android:layout_marginRight="6dp"
-                android:text="@string/title_getaride_part1" />
+
+                style="@style/labelStyleForm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name :" />
+
+            <EditText
+                style="@style/inputStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Hello World"
+                android:maxLength="40" />
 
             <TextView
-                style="@style/titleFormStyle"
-                android:layout_marginRight="6dp"
-                android:text="@string/title_getaride_part2"
-                android:textColor="@color/colorTaxiYellow" />
 
-            <TextView
-                style="@style/titleFormStyle"
-                android:text="@string/title_getaride_part3" />
+                style="@style/labelStyleForm"
+                android:text="Michelles :" />
+
+            <EditText
+                style="@style/inputStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Hello World"
+                android:maxLength="40" />
+
+
+
 
         </LinearLayout>
 
 
-        <TextView
 
-            style="@style/labelStyleForm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Name :" />
-
-        <EditText
-            style="@style/inputStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Hello World"
-            android:maxLength="40" />
-
-        <TextView
-
-            style="@style/labelStyleForm"
-            android:text="Michelles :" />
-
-        <EditText
-            style="@style/inputStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Hello World"
-            android:maxLength="40" />
-
-        <Button
-            style="@style/rectangleButtonStyle"
-            android:layout_marginTop="10dp"
-            android:text="Order a ride" />
-
-    </LinearLayout>
-
-
+    </ScrollView>
+    <Button
+        style="@style/rectangleButtonStyle"
+        android:layout_marginTop="10dp"
+        android:text="Order a ride !" />
 </FrameLayout>
