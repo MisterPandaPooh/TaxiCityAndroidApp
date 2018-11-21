@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +32,11 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+        getSupportActionBar().hide(); // Hiding Action Bar
+
         setContentView(R.layout.activity_main);
 
         btnOrder = findViewById(R.id.btn_get_taxi);
