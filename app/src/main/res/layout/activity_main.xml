@@ -7,6 +7,10 @@
     tools:context=".controller.activities.MainActivity"
     android:id="@+id/main_frame_layout">
 
+
+
+    <!--- Background of the Activity -->
+
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -17,11 +21,16 @@
         android:contentDescription="@string/alt_background_of_the_activity"
         />
 
+
+
+    <!--- Get Started Button -->
     <Button
         style="@style/rectangleButtonStyle"
         android:text="@string/btn_get_a_taxi"
         android:id="@+id/btn_get_taxi"/>
 
+
+    <!-- Logo of TaxiCity -->
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,4 +38,6 @@
         android:layout_gravity="center"
         android:contentDescription="@string/alt_logo_of_the_society"
         />
+
+
 </FrameLayout>

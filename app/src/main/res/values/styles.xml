@@ -7,16 +7,9 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    
-    
-    <style name="inputStyle" parent="android:Widget.EditText">
-        <item name="android:background">@drawable/edittext_background</item>
-        <item name="android:textColor">@color/colorTaxiBlack</item>
-        <item name="android:padding">10dp</item>
-        <item name="android:textCursorDrawable">@drawable/custom_cursor</item>
-        <item name="android:layout_marginBottom">10dp</item>
-    </style>
 
+
+    <!-- Styled TextView in Fragment -->
     <style name="titleFormStyle" parent="android:Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -27,6 +20,17 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <!-- Styled EditText in Forms -->
+    <style name="inputStyle" parent="android:Widget.EditText">
+        <item name="android:background">@drawable/edittext_background</item>
+        <item name="android:textColor">@color/colorTaxiBlack</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textCursorDrawable">@drawable/custom_cursor</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+
+    <!-- Styled Label in Forms -->
     <style name="labelStyleForm" parent="android:Widget.TextView">
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16.5sp</item>
@@ -35,6 +39,7 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <!-- Styled Button Bottom -->
     <style name="rectangleButtonStyle" parent="android:Widget.Button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

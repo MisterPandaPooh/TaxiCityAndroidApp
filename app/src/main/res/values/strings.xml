@@ -1,11 +1,16 @@
 <resources>
     <string name="app_name">Taxi City</string>
     <string name="btn_get_a_taxi">Get a Taxi</string>
+
+
+    <!-- Image Description Strings -->
     <string name="alt_background_of_the_activity">Background of the Activity</string>
     <string name="alt_logo_of_the_society">Logo of the society</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Title Of Register Fragment -->
     <string name="title_getaride_part1">GET</string>
     <string name="title_getaride_part2">A</string>
     <string name="title_getaride_part3">RIDE</string>
