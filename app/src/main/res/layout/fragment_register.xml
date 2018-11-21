@@ -83,7 +83,7 @@
 
     </ScrollView>
 
-    <!-- Submit Button -->
+    <!-- Submit Button-->
 
     <Button
         style="@style/rectangleButtonStyle"

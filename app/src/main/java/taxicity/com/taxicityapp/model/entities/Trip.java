@@ -1,17 +1,16 @@
 package taxicity.com.taxicityapp.model.entities;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.Date;
 
 public class Trip {
 
 
-    public enum TripStatus {AVAILABLE,IN_PROGRESS,FINISHED}
+    public enum TripStatus {AVAILABLE, IN_PROGRESS, FINISHED}
 
-    private long tripId;
-
-    private String startingAddress;
-
-    private String destinationAddress;
+    @Exclude
+    private String key;
 
     private Date startingHour;
 
@@ -25,31 +24,54 @@ public class Trip {
 
     private TripStatus status;
 
+    private double sourceLongitude;
 
-
-    public long getTripId() {
-        return tripId;
+    public String getKey() {
+        return key;
     }
 
-    public void setTripId(long tripId) {
-        this.tripId = tripId;
+    public void setKey(String key) {
+        this.key = key;
     }
 
-    public String getStartingAddress() {
-        return startingAddress;
+    public double getSourceLongitude() {
+        return sourceLongitude;
     }
 
-    public void setStartingAddress(String startingAddress) {
-        this.startingAddress = startingAddress;
+    public void setSourceLongitude(double sourceLongitude) {
+        this.sourceLongitude = sourceLongitude;
     }
 
-    public String getDestinationAddress() {
-        return destinationAddress;
+    public double getSourceLatitude() {
+        return sourceLatitude;
     }
 
-    public void setDestinationAddress(String destinationAddress) {
-        this.destinationAddress = destinationAddress;
+    public void setSourceLatitude(double sourceLatitude) {
+        this.sourceLatitude = sourceLatitude;
     }
+
+    public double getDestinationLongitude() {
+        return destinationLongitude;
+    }
+
+    public void setDestinationLongitude(double destinationLongitude) {
+        this.destinationLongitude = destinationLongitude;
+    }
+
+    public double getDestinationLatitude() {
+        return destinationLatitude;
+    }
+
+    public void setDestinationLatitude(double destinationLatitude) {
+        this.destinationLatitude = destinationLatitude;
+    }
+
+    private double sourceLatitude;
+
+    private double destinationLongitude;
+
+    private double destinationLatitude;
+
 
     public Date getStartingHour() {
         return startingHour;
@@ -98,8 +120,6 @@ public class Trip {
     public void setStatus(TripStatus status) {
         this.status = status;
     }
-
-
 
 
 }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/frame_layout_welcome"
+    tools:context=".controller.fragments.WelcomeFragment">
+
+    <!--- Background of the Activity -->
+
+    <ImageView
+        android:id="@+id/background_image"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:alpha="0.4"
+        android:contentDescription="@string/alt_background_of_the_activity"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg_2" />
+
+
+    <!--- Get Started Button -->
+    <Button
+        android:id="@+id/btn_get_taxi"
+        style="@style/rectangleButtonStyle"
+        android:text="@string/btn_get_a_taxi" />
+
+
+    <!-- Logo of TaxiCity -->
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/logohdpi"
+        android:contentDescription="@string/alt_logo_of_the_society" />
+
+</FrameLayout>

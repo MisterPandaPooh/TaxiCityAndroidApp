@@ -1,53 +1,67 @@
 package taxicity.com.taxicityapp.controller.activities;
 
 import android.net.Uri;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import taxicity.com.taxicityapp.R;
 import taxicity.com.taxicityapp.controller.fragments.RegisterFragment;
+import taxicity.com.taxicityapp.controller.fragments.WelcomeFragment;
 
-public class MainActivity extends AppCompatActivity implements RegisterFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements WelcomeFragment.OnFragmentInteractionListener , RegisterFragment.OnFragmentInteractionListener {
 
     /**
      * The Fragment who is displaying the request of trip form.
      */
+
+    private FragmentManager fm = getSupportFragmentManager();
+
     private RegisterFragment fragment = null;
 
-    /**
-     * The button who is starting the App
-     */
-    private Button btnOrder;
+    private WelcomeFragment welcomeFragment = null;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         getSupportActionBar().hide(); // Hiding Action Bar
 
         setContentView(R.layout.activity_main);
 
-        btnOrder = findViewById(R.id.btn_get_taxi);
+        configureWelcomeFragment();
 
-        //Init Event Listener
-        btnOrder.setOnClickListener(new View.OnClickListener() {
+
+       /* Trip tr = new Trip();
+        tr.setCustomerName("Netanel");
+        tr.setCustomerEmail("netanelcohensolal@me.com");
+        tr.setCustomerPhone("0587250797");
+        tr.setDestinationAddress("Strasbourg");
+        tr.setStatus(Trip.TripStatus.IN_PROGRESS);
+        FirebaseDatabase  db =  FirebaseDatabase.getInstance();
+        DatabaseReference ref  = db.getReference("Trips");
+        final String id = ref.push().getKey();
+
+        ref.child(id).setValue(tr);
+
+        ref.child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                configureRegisterFragement();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                 Trip tr1 = dataSnapshot.getValue(Trip.class);
+                Log.d("bb", tr1.getCustomerEmail());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
+
+*/
 
     }
 
@@ -56,17 +70,14 @@ public class MainActivity extends AppCompatActivity implements RegisterFragment.
     /**
      * Configure and Init the "Trip Request" Fragment
      */
-    private void configureRegisterFragement() {
+    private void configureWelcomeFragment() {
 
         //Singleton pattern of the fragment.
-        if (fragment == null)
-            fragment = new RegisterFragment();
+        if (welcomeFragment == null)
+            welcomeFragment = new WelcomeFragment();
 
-        //Hide the Button when displaying the fragment.
-        btnOrder.setVisibility(View.GONE);
-
-        //Adding the Register fragment to the view.
-        getSupportFragmentManager().beginTransaction().add(R.id.main_frame_layout, fragment).commit();
+        //Adding Welcome Fragment
+        fm.beginTransaction().add(R.id.main_frame_layout, welcomeFragment).commit();
     }
 
     @Override
