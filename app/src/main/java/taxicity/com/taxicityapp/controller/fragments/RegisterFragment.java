@@ -1,12 +1,15 @@
 package taxicity.com.taxicityapp.controller.fragments;
 
+
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import taxicity.com.taxicityapp.R;
 
@@ -29,6 +32,8 @@ public class RegisterFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private TaxiMapFragment mapFragment;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -65,7 +70,12 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false);
+        View v = inflater.inflate(R.layout.fragment_register, container, false);
+
+        Button btn = v.findViewById(R.id.submit_btn_order);
+
+        btn.setOnClickListener(onClickInitFragmentListenner());
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,5 +115,28 @@ public class RegisterFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private View.OnClickListener onClickInitFragmentListenner() {
+
+        return (new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Singleton Register fragment
+                if (mapFragment == null)
+                    mapFragment = new TaxiMapFragment();
+
+                //Get Fragment manager from the parent
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+
+                //Remove and Replace with the new
+                fm.beginTransaction().remove(fm.findFragmentById(R.id.main_frame_layout)).commit();
+                fm.beginTransaction().replace(R.id.main_frame_layout, mapFragment).commit();
+
+
+            }
+        });
+
     }
 }

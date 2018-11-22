@@ -1,14 +1,34 @@
 package taxicity.com.taxicityapp.controller.fragments;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import taxicity.com.taxicityapp.R;
+import taxicity.com.taxicityapp.controller.activities.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,17 +38,27 @@ import taxicity.com.taxicityapp.R;
  * Use the {@link TaxiMapFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TaxiMapFragment extends Fragment {
+public class TaxiMapFragment extends Fragment implements LocationListener, OnMapReadyCallback {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private static final int PERMS_REQUESTCODE_ID = 531;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
+
+    private FragmentManager fragmentManagerParent;
+    private LocationManager locationManager;
+    private Activity parentActy;
+    private SupportMapFragment mapFragment;
+    private GoogleMap mapGoogle;
+
     private OnFragmentInteractionListener mListener;
+
 
     public TaxiMapFragment() {
         // Required empty public constructor
@@ -59,13 +89,23 @@ public class TaxiMapFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+        parentActy = getActivity();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_taxi_map, container, false);
+        View v = inflater.inflate(R.layout.fragment_taxi_map, container, false);
+
+        checkPermissions();
+        mapFragment = (SupportMapFragment) this.getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -92,6 +132,84 @@ public class TaxiMapFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        checkPermissions();
+
+    }
+
+    private void checkPermissions() {
+
+        if (ActivityCompat.checkSelfPermission(parentActy, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(parentActy, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(parentActy, new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+            }, PERMS_REQUESTCODE_ID);
+            return;
+        }
+
+        locationManager = (LocationManager) parentActy.getSystemService(parentActy.LOCATION_SERVICE);
+
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, this);
+
+
+
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == PERMS_REQUESTCODE_ID)
+        {
+            checkPermissions();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        locationManager.removeUpdates(this);
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+
+        Toast.makeText(parentActy, latitude +""+longitude, Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mapGoogle = googleMap;
+
+        LatLng sydney = new LatLng(-33.852, 151.211);
+        googleMap.addMarker(new MarkerOptions().position(sydney)
+                .title("Marker in Sydney"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -106,4 +224,6 @@ public class TaxiMapFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }

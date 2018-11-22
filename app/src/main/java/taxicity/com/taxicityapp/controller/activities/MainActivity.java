@@ -1,17 +1,18 @@
 package taxicity.com.taxicityapp.controller.activities;
 
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import taxicity.com.taxicityapp.R;
 import taxicity.com.taxicityapp.controller.fragments.RegisterFragment;
+import taxicity.com.taxicityapp.controller.fragments.TaxiMapFragment;
 import taxicity.com.taxicityapp.controller.fragments.WelcomeFragment;
 
-public class MainActivity extends AppCompatActivity implements WelcomeFragment.OnFragmentInteractionListener , RegisterFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements WelcomeFragment.OnFragmentInteractionListener , RegisterFragment.OnFragmentInteractionListener, TaxiMapFragment.OnFragmentInteractionListener {
 
     /**
      * The Fragment who is displaying the request of trip form.

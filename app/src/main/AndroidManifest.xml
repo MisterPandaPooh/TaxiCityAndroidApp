@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="taxicity.com.taxicityapp">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,6 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".controller.activities.OrderTrip"></activity>
+
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCl9Hpy4r2mqUFw3UmP30W9nAofLj37zsk"/>
     </application>
 
 </manifest>

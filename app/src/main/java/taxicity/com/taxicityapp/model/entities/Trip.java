@@ -2,6 +2,7 @@ package taxicity.com.taxicityapp.model.entities;
 
 import com.google.firebase.database.Exclude;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Trip {
@@ -12,9 +13,9 @@ public class Trip {
     @Exclude
     private String key;
 
-    private Date startingHour;
+    private SimpleDateFormat startingHour;
 
-    private Date endingHour;
+    private SimpleDateFormat endingHour;
 
     private String customerName;
 
@@ -73,19 +74,19 @@ public class Trip {
     private double destinationLatitude;
 
 
-    public Date getStartingHour() {
+    public SimpleDateFormat getStartingHour() {
         return startingHour;
     }
 
-    public void setStartingHour(Date startingHour) {
+    public void setStartingHour(SimpleDateFormat startingHour) {
         this.startingHour = startingHour;
     }
 
-    public Date getEndingHour() {
+    public SimpleDateFormat getEndingHour() {
         return endingHour;
     }
 
-    public void setEndingHour(Date endingHour) {
+    public void setEndingHour(SimpleDateFormat endingHour) {
         this.endingHour = endingHour;
     }
 
