@@ -175,6 +175,12 @@ public class TaxiMapFragment extends Fragment implements LocationListener, OnMap
         }
     }
 
+    @SuppressLint("MissingPermission")
+    private void updateLocationUI(){
+        mapGoogle.setMyLocationEnabled(true);
+        mapGoogle.getUiSettings().setMyLocationButtonEnabled(true);
+    }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -205,14 +211,18 @@ public class TaxiMapFragment extends Fragment implements LocationListener, OnMap
 
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mapGoogle = googleMap;
 
-        LatLng sydney = new LatLng(-33.852, 151.211);
+        /*LatLng sydney = new LatLng(-33.852, 151.211);
         googleMap.addMarker(new MarkerOptions().position(sydney)
                 .title("Marker in Sydney"));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
+
+        mapGoogle.setMyLocationEnabled(true);
+        mapGoogle.getUiSettings().setMyLocationButtonEnabled(true);
 
     }
 
