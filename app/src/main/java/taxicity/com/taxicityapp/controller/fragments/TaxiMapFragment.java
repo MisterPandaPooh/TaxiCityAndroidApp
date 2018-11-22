@@ -44,7 +44,7 @@ public class TaxiMapFragment extends Fragment implements LocationListener, OnMap
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private static final int PERMS_REQUESTCODE_ID = 531;
+    private static final int REQUEST_CODE_ASK_PERMISSIONS = 531;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -57,6 +57,7 @@ public class TaxiMapFragment extends Fragment implements LocationListener, OnMap
     private SupportMapFragment mapFragment;
     private GoogleMap mapGoogle;
 
+    private boolean grantedLocation = false;
     private OnFragmentInteractionListener mListener;
 
 
@@ -90,9 +91,16 @@ public class TaxiMapFragment extends Fragment implements LocationListener, OnMap
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-
         parentActy = getActivity();
     }
+
+    private void requestPermission() {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
+            ActivityCompat
+                    .requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_CODE_ASK_PERMISSIONS);
+        }
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -100,7 +108,6 @@ public class TaxiMapFragment extends Fragment implements LocationListener, OnMap
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_taxi_map, container, false);
 
-        checkPermissions();
         mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -132,40 +139,39 @@ public class TaxiMapFragment extends Fragment implements LocationListener, OnMap
         mListener = null;
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public void onResume() {
         super.onResume();
-        checkPermissions();
+        requestPermission();
+        locationManager = (LocationManager) parentActy.getSystemService(getActivity().LOCATION_SERVICE);
+        if (grantedLocation) {
+            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, this);
 
-    }
-
-    private void checkPermissions() {
-
-        if (ActivityCompat.checkSelfPermission(parentActy, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(parentActy, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(parentActy, new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-            }, PERMS_REQUESTCODE_ID);
-            return;
         }
-
-        locationManager = (LocationManager) parentActy.getSystemService(parentActy.LOCATION_SERVICE);
-
-        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0, this);
-
-
-
     }
+
 
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == PERMS_REQUESTCODE_ID)
-        {
-            checkPermissions();
+        switch (requestCode) {
+            case REQUEST_CODE_ASK_PERMISSIONS:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    grantedLocation = true;
+                    // Permission Granted
+                    Toast.makeText(getContext(), "Permission Granted", Toast.LENGTH_SHORT)
+                            .show();
+                } else {
+                    grantedLocation = false;
+                    // Permission Denied
+                    Toast.makeText(getContext(), "Permission Denied", Toast.LENGTH_SHORT)
+                            .show();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
