@@ -4,25 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:map="http://schemas.android.com/apk/res-auto"
-    tools:context=".controller.fragments.TaxiMapFragment">
+    tools:context=".controller.fragments.googleMapFragment">
 
     <fragment
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/map"
+        android:id="@+id/mapGoogle"
         map:mapType="terrain"
+        map:uiZoomControls="true"
+        map:uiMapToolbar="false"
         />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:orientation="vertical">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/inputStyle"
+            android:maxHeight="50dp"
+            android:maxLength="255"
+            android:background="@drawable/edittext_back_no_raidus"
             android:enabled="false"
             android:hint="Source Adresse"
             android:layout_marginBottom="0dp"
@@ -30,8 +36,11 @@
 
         <EditText
             android:layout_marginTop="0dp"
+            android:maxHeight="50dp"
+            android:maxLength="255"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/edittext_back_no_raidus"
             style="@style/inputStyle"
             android:hint="Your Destination"/>
 
