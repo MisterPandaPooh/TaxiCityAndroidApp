@@ -12,6 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.location.places.ui.SupportPlaceAutocompleteFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,12 +41,16 @@ import taxicity.com.taxicityapp.R;
 /**
  * A simple {@link Fragment} subclass.
  */
+
+//TODO FAIRE CURRENT LOCATION
+//TODO COVERTER CURRENT LOCATION TO ADRESS GEOCODER AND PROJET
 public class googleMapFragment extends Fragment implements OnMapReadyCallback {
 
 
     private SupportMapFragment mapFragment;
     private GoogleMap mMap;
-    private String TAG = "so47492459";
+    private String TAG = "errorMap";
+    private SupportPlaceAutocompleteFragment autoCompleteDestinationField;
 
     public googleMapFragment() {
         // Required empty public constructor
@@ -61,10 +70,32 @@ public class googleMapFragment extends Fragment implements OnMapReadyCallback {
 
         if(getActivity()!=null) {
             mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.mapGoogle);
+
             if (mapFragment != null) {
                 mapFragment.getMapAsync(this);
             }
+
+            autoCompleteDestinationField = (SupportPlaceAutocompleteFragment) getChildFragmentManager().findFragmentById(R.id.autocompleter_google_destination);
+
+            if (autoCompleteDestinationField != null) {
+                autoCompleteDestinationField.setOnPlaceSelectedListener(onPLaceSelectedAction());
+            }
         }
+    }
+
+    private PlaceSelectionListener onPLaceSelectedAction() {
+        return new PlaceSelectionListener() {
+            @Override
+            public void onPlaceSelected(Place place) {
+                LatLng v = place.getLatLng();
+                CharSequence cr = place.getAddress();
+            }
+
+            @Override
+            public void onError(Status status) {
+
+            }
+        };
     }
 
     @SuppressLint("MissingPermission")
