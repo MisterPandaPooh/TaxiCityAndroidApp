@@ -27,6 +27,12 @@ public class Trip {
 
     private double sourceLongitude;
 
+    private double sourceLatitude;
+
+    private double destinationLongitude;
+
+    private double destinationLatitude;
+
     public String getKey() {
         return key;
     }
@@ -66,12 +72,6 @@ public class Trip {
     public void setDestinationLatitude(double destinationLatitude) {
         this.destinationLatitude = destinationLatitude;
     }
-
-    private double sourceLatitude;
-
-    private double destinationLongitude;
-
-    private double destinationLatitude;
 
 
     public SimpleDateFormat getStartingHour() {

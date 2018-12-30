@@ -15,7 +15,7 @@ import taxicity.com.taxicityapp.R;
 public class WelcomeFragment extends Fragment {
 
     private Button btnOrder;
-    private RegisterFragment registerFragment = null;
+    private FormFragment formFragment = null;
 
 
     public WelcomeFragment() {
@@ -47,15 +47,15 @@ public class WelcomeFragment extends Fragment {
             public void onClick(View v) {
 
                 //Singleton Register fragment
-                if (registerFragment == null)
-                    registerFragment = new RegisterFragment();
+                if (formFragment == null)
+                    formFragment = new FormFragment();
 
                 //Get Fragment manager from the parent
                 FragmentManager fm = getActivity().getSupportFragmentManager();
 
                 //Remove and Replace with the new
                 fm.beginTransaction().remove(fm.findFragmentById(R.id.main_frame_layout)).commit();
-                fm.beginTransaction().replace(R.id.main_frame_layout, registerFragment).commit();
+                fm.beginTransaction().replace(R.id.main_frame_layout, formFragment).commit();
 
 
             }

@@ -9,14 +9,14 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import taxicity.com.taxicityapp.R;
-import taxicity.com.taxicityapp.controller.fragments.RegisterFragment;
+import taxicity.com.taxicityapp.controller.fragments.FormFragment;
 import taxicity.com.taxicityapp.controller.fragments.WelcomeFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE_ASK_PERMISSIONS = 522;
     private FragmentManager fm = getSupportFragmentManager();
-    private RegisterFragment fragment = null;
+    private FormFragment fragment = null;
     private WelcomeFragment welcomeFragment = null;
 
 

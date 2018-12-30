@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    tools:context=".controller.fragments.RegisterFragment">
+    tools:context=".controller.fragments.FormFragment">
+
 
     <!--- Scrollable view -->
     <ScrollView
@@ -49,6 +49,16 @@
 
             </LinearLayout>
 
+            <TextView
+
+                android:textColor="#F00"
+                android:layout_margin="10dp"
+                android:textStyle="italic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:id="@+id/helper_form"
+                android:text="Error : vous etes pas beau"/>
 
             <!-- Example of TextView and EditText -->
             <TextView
@@ -62,20 +72,41 @@
                 style="@style/inputStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Hello World"
-                android:maxLength="40" />
+                android:hint="Jean Delaveine"
+                android:maxLines="1"
+                android:id="@+id/name_input_form"
+                android:inputType="text"
+                android:maxLength="255" />
 
             <TextView
 
                 style="@style/labelStyleForm"
-                android:text="Michelles :" />
+                android:text="Email :" />
 
             <EditText
                 style="@style/inputStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Hello World"
-                android:maxLength="40" />
+                android:hint="j.delaveine@example.com"
+                android:maxLines="1"
+                android:id="@+id/email_input_form"
+                android:inputType="textEmailAddress"
+                android:maxLength="255" />
+
+            <TextView
+
+                style="@style/labelStyleForm"
+                android:text="Phone Number :" />
+
+            <EditText
+                style="@style/inputStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="0587250797"
+                android:maxLines="1"
+                android:id="@+id/phone_input_form"
+                android:inputType="phone"
+                android:maxLength="15" />
 
 
         </LinearLayout>
@@ -89,7 +120,6 @@
         style="@style/rectangleButtonStyle"
         android:layout_marginTop="10dp"
         android:text="Order a ride !"
-        android:id="@+id/submit_btn_order"/>
-
+        android:id="@+id/submit_btn_form"/>
 
 </FrameLayout>

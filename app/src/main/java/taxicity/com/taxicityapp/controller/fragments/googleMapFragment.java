@@ -68,7 +68,7 @@ public class googleMapFragment extends Fragment implements OnMapReadyCallback {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if(getActivity()!=null) {
+        if (getActivity() != null) {
             mapFragment = (SupportMapFragment) this.getChildFragmentManager().findFragmentById(R.id.mapGoogle);
 
             if (mapFragment != null) {
@@ -110,18 +110,18 @@ public class googleMapFragment extends Fragment implements OnMapReadyCallback {
 
     }
 
-    private class RouteAsyncTask extends AsyncTask{
+    private class RouteAsyncTask extends AsyncTask {
 
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            LatLng barcelona = new LatLng(41.385064,2.173403);
+            LatLng barcelona = new LatLng(41.385064, 2.173403);
             mMap.addMarker(new MarkerOptions().position(barcelona).title("Marker in Barcelona"));
 
-            LatLng madrid = new LatLng(40.416775,-3.70379);
+            LatLng madrid = new LatLng(40.416775, -3.70379);
             mMap.addMarker(new MarkerOptions().position(madrid).title("Marker in Madrid"));
 
-            LatLng zaragoza = new LatLng(41.648823,-0.889085);
+            LatLng zaragoza = new LatLng(41.648823, -0.889085);
 
             //Define list to get all latlng for the route
             List<LatLng> path = new ArrayList();
@@ -139,14 +139,14 @@ public class googleMapFragment extends Fragment implements OnMapReadyCallback {
                 if (res.routes != null && res.routes.length > 0) {
                     DirectionsRoute route = res.routes[0];
 
-                    if (route.legs !=null) {
-                        for(int i=0; i<route.legs.length; i++) {
+                    if (route.legs != null) {
+                        for (int i = 0; i < route.legs.length; i++) {
                             DirectionsLeg leg = route.legs[i];
                             if (leg.steps != null) {
-                                for (int j=0; j<leg.steps.length;j++){
+                                for (int j = 0; j < leg.steps.length; j++) {
                                     DirectionsStep step = leg.steps[j];
-                                    if (step.steps != null && step.steps.length >0) {
-                                        for (int k=0; k<step.steps.length;k++){
+                                    if (step.steps != null && step.steps.length > 0) {
+                                        for (int k = 0; k < step.steps.length; k++) {
                                             DirectionsStep step1 = step.steps[k];
                                             EncodedPolyline points1 = step1.polyline;
                                             if (points1 != null) {
@@ -172,7 +172,7 @@ public class googleMapFragment extends Fragment implements OnMapReadyCallback {
                         }
                     }
                 }
-            } catch(Exception ex) {
+            } catch (Exception ex) {
                 Log.e(TAG, ex.getLocalizedMessage());
             }
 
