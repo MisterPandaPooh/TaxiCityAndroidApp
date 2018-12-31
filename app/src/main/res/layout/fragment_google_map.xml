@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/mapGoogle"
-        map:mapType="terrain"
+        map:mapType="normal"
         map:uiZoomControls="true"
         map:uiMapToolbar="false"
         />
@@ -28,12 +28,13 @@
             android:layout_height="wrap_content"
             style="@style/inputStyle"
             android:maxLines="1"
-            android:maxLength="255"
+            android:maxLength="70"
             android:minHeight="50dp"
             android:background="@drawable/edittext_back_no_raidus"
             android:enabled="false"
             android:hint="Source Adresse"
             android:layout_marginBottom="0dp"
+            android:id="@+id/input_src_address"
             />
 
         <LinearLayout

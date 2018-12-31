@@ -5,7 +5,11 @@ import com.google.firebase.database.Exclude;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import taxicity.com.taxicityapp.model.helper.Helpers;
+
 public class Trip {
+
+
 
 
     public enum TripStatus {AVAILABLE, IN_PROGRESS, FINISHED}
@@ -13,9 +17,9 @@ public class Trip {
     @Exclude
     private String key;
 
-    private SimpleDateFormat startingHour;
+    private Date startingHour; //Not firebase
 
-    private SimpleDateFormat endingHour;
+    private Date endingHour; //Not Firebase
 
     private String customerName;
 
@@ -23,15 +27,22 @@ public class Trip {
 
     private String customerEmail;
 
+
     private TripStatus status;
 
     private double sourceLongitude;
 
     private double sourceLatitude;
 
+    private String sourceAddress;
+
     private double destinationLongitude;
 
     private double destinationLatitude;
+
+    private String destinationAddress;
+
+    private int driverID;
 
     public String getKey() {
         return key;
@@ -39,6 +50,31 @@ public class Trip {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
+    }
+
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
     }
 
     public double getSourceLongitude() {
@@ -73,53 +109,107 @@ public class Trip {
         this.destinationLatitude = destinationLatitude;
     }
 
+    public String getDestinationAddress() {
+        return destinationAddress;
+    }
 
-    public SimpleDateFormat getStartingHour() {
+    public void setDestinationAddress(String destinationAddress) {
+        this.destinationAddress = destinationAddress;
+    }
+
+    public int getDriverID() {
+        return driverID;
+    }
+
+    public void setDriverID(int driverID) {
+        this.driverID = driverID;
+    }
+
+    public String getSourceAddress() {
+        return sourceAddress;
+    }
+
+    public void setSourceAddress(String sourceAddress) {
+        this.sourceAddress = sourceAddress;
+    }
+
+    public String getStartingHour() {
+        if (startingHour == null)
+            return null;
+        return Helpers.ISO_8601_FORMAT.format(startingHour);
+    }
+
+    public void setStartingHour(String startingHour) {
+
+        if (startingHour == null)
+            this.startingHour = null;
+        else
+            this.startingHour = new Date(startingHour);
+    }
+
+    @Exclude
+    public Date getStartingHourAsDate() {
         return startingHour;
     }
 
-    public void setStartingHour(SimpleDateFormat startingHour) {
+    @Exclude
+    public void setStartingHourAsDate(Date startingHour) {
         this.startingHour = startingHour;
     }
 
-    public SimpleDateFormat getEndingHour() {
+
+    // DATABASE ADAPTER
+    @Exclude
+    public Date getEndingHourAsDate() {
         return endingHour;
     }
 
-    public void setEndingHour(SimpleDateFormat endingHour) {
+    @Exclude
+    public void setEndingHourAsDate(Date endingHour) {
+
         this.endingHour = endingHour;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getEndingHour() {
+
+        if (endingHour == null)
+            return null;
+        return Helpers.ISO_8601_FORMAT.format(endingHour);
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setEndingHour(String endingHour) {
+
+        if (endingHour == null)
+            this.endingHour = null;
+        else
+            this.endingHour = new Date(endingHour);
     }
 
-    public String getCustomerPhone() {
-        return customerPhone;
-    }
-
-    public void setCustomerPhone(String customerPhone) {
-        this.customerPhone = customerPhone;
-    }
-
-    public String getCustomerEmail() {
-        return customerEmail;
-    }
-
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
-    }
-
-    public TripStatus getStatus() {
+    @Exclude
+    public TripStatus getStatusAsEnum() {
         return status;
     }
 
-    public void setStatus(TripStatus status) {
+    @Exclude
+    public void setStatusAsEnum(TripStatus status) {
         this.status = status;
+    }
+
+    //Include enum in firebase
+    public String getStatus() {
+        if (status == null) {
+            return null;
+        } else {
+            return status.name();
+        }
+    }
+
+    public void setStatus(String statusString) {
+        if (statusString == null) {
+            status = null;
+        } else {
+            this.status = TripStatus.valueOf(statusString);
+        }
     }
 
 

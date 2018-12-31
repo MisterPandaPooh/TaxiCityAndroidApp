@@ -2,7 +2,12 @@ package taxicity.com.taxicityapp.model.helper;
 
 import android.text.TextUtils;
 
-public  class Validate {
+import java.text.SimpleDateFormat;
+
+public  class Helpers {
+
+    public final static SimpleDateFormat ISO_8601_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:sss'Z'");
+
 
     public final static boolean isValidEmail(CharSequence target) {
         if (TextUtils.isEmpty(target)) {
