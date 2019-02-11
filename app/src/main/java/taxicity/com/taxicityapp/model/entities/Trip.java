@@ -17,16 +17,15 @@ public class Trip {
     @Exclude
     private String key;
 
-    private Date startingHour; //Not firebase
+    private String startingHour; //Start Hours of the Trip.
 
-    private Date endingHour; //Not Firebase
+    private String endingHour;  //End Hours of the Trip.
 
     private String customerName;
 
     private String customerPhone;
 
     private String customerEmail;
-
 
     private TripStatus status;
 
@@ -42,12 +41,18 @@ public class Trip {
 
     private String destinationAddress;
 
-    private int driverID;
+    private String destinationCity;
 
+    private String driverEmail;
+
+
+
+    @Exclude
     public String getKey() {
         return key;
     }
 
+    @Exclude
     public void setKey(String key) {
         this.key = key;
     }
@@ -117,13 +122,6 @@ public class Trip {
         this.destinationAddress = destinationAddress;
     }
 
-    public int getDriverID() {
-        return driverID;
-    }
-
-    public void setDriverID(int driverID) {
-        this.driverID = driverID;
-    }
 
     public String getSourceAddress() {
         return sourceAddress;
@@ -134,56 +132,35 @@ public class Trip {
     }
 
     public String getStartingHour() {
-        if (startingHour == null)
-            return null;
-        return Helpers.ISO_8601_FORMAT.format(startingHour);
-    }
-
-    public void setStartingHour(String startingHour) {
-
-        if (startingHour == null)
-            this.startingHour = null;
-        else
-            this.startingHour = new Date(startingHour);
-    }
-
-    @Exclude
-    public Date getStartingHourAsDate() {
         return startingHour;
     }
 
-    @Exclude
-    public void setStartingHourAsDate(Date startingHour) {
+    public void setStartingHour(String startingHour) {
         this.startingHour = startingHour;
     }
 
-
-    // DATABASE ADAPTER
-    @Exclude
-    public Date getEndingHourAsDate() {
+    public String getEndingHour() {
         return endingHour;
     }
 
-    @Exclude
-    public void setEndingHourAsDate(Date endingHour) {
-
+    public void setEndingHour(String endingHour) {
         this.endingHour = endingHour;
     }
 
-    public String getEndingHour() {
 
-        if (endingHour == null)
-            return null;
-        return Helpers.ISO_8601_FORMAT.format(endingHour);
+    @Exclude
+    public Date getStartingHourAsDate() {
+        if (startingHour == null)
+            return new Date();
+        return new Date(Long.parseLong(startingHour));
     }
 
-    public void setEndingHour(String endingHour) {
-
-        if (endingHour == null)
-            this.endingHour = null;
-        else
-            this.endingHour = new Date(endingHour);
+    @Exclude
+    public Date getEndingHourAsDate() {
+        return new Date(Long.parseLong(endingHour));
     }
+
+
 
     @Exclude
     public TripStatus getStatusAsEnum() {
@@ -195,7 +172,7 @@ public class Trip {
         this.status = status;
     }
 
-    //Include enum in firebase
+
     public String getStatus() {
         if (status == null) {
             return null;
@@ -212,5 +189,21 @@ public class Trip {
         }
     }
 
+    public String getDriverEmail() {
+        return driverEmail;
+    }
+
+    public void setDriverEmail(String driverEmail) {
+        this.driverEmail = driverEmail;
+    }
+
+    public String getDestinationCity() {
+        return destinationCity;
+    }
+
+    public void setDestinationCity(String destinationCity) {
+        this.destinationCity = destinationCity;
+    }
 
 }
+

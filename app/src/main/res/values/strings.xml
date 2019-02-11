@@ -7,13 +7,29 @@
     <string name="alt_background_of_the_activity">Background of the Activity</string>
     <string name="alt_logo_of_the_society">Logo of the society</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Title Of Register Fragment -->
-    <string name="title_getaride_part1">GET</string>
-    <string name="title_getaride_part2">A</string>
-    <string name="title_getaride_part3">RIDE</string>
+    <string name="title_get_a_ride_part1">GET</string>
+    <string name="title_get_a_ride_part2">A</string>
+    <string name="title_get_a_ride_part3">RIDE</string>
+    <string name="all_required_fields_error_msg">Please fill in all the required fields.</string>
+    <string name="valid_email_error_msg">Please enter a valid email address.</string>
+    <string name="valid_phone_number_error_message">Please enter a valid phone number.</string>
+    <string name="in_progress_toast_msg">In progress …</string>
+    <string name="unable_to_find_location_error_msg">Unable to find the destination address.</string>
+    <string name="failure_getting_trip_error_msg">can\'t get the trip</string>
+    <string name="waiting_for_driver_msg">Waiting for a driver…</string>
+    <string name="trip_in_progress_msg">Your Trip is in progress ! :D</string>
+    <string name="helper_text">Error : vous etes pas beau</string>
+    <string name="name_lbl">Name :</string>
+    <string name="name_hint">Jean Delaveine</string>
+    <string name="email_lbl">Email :</string>
+    <string name="email_hint">j.delaveine@example.com</string>
+    <string name="phone_number_lbl">Phone Number :</string>
+    <string name="phone_number_hint">0587250797</string>
+    <string name="order_a_ride_btn">Order a ride !</string>
+    <string name="source_address_lbl">Source Address</string>
+    <string name="alt_hint">TODO</string>
 
 
 </resources>

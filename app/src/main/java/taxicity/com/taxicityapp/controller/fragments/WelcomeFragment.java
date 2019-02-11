@@ -1,7 +1,5 @@
 package taxicity.com.taxicityapp.controller.fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,9 +10,12 @@ import android.widget.Button;
 
 import taxicity.com.taxicityapp.R;
 
+/**
+ * WelcomeFragment is the first fragment of the app.
+ */
 public class WelcomeFragment extends Fragment {
 
-    private Button btnOrder;
+    private Button btnOrder; //Button "Get Started !"
     private FormFragment formFragment = null;
 
 
@@ -32,7 +33,7 @@ public class WelcomeFragment extends Fragment {
 
         btnOrder = v.findViewById(R.id.btn_get_taxi);
 
-        btnOrder.setOnClickListener(onClickInitFragmentListenner());
+        btnOrder.setOnClickListener(onClickInitFragmentListener());
 
         return v;
 
@@ -40,7 +41,12 @@ public class WelcomeFragment extends Fragment {
     }
 
 
-    private View.OnClickListener onClickInitFragmentListenner() {
+    /**
+     * Initialisation of the second fragment (the form fragment).
+     *
+     * @return
+     */
+    private View.OnClickListener onClickInitFragmentListener() {
 
         return (new View.OnClickListener() {
             @Override

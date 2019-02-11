@@ -3,13 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/frame_layout_welcome"
     tools:context=".controller.fragments.WelcomeFragment">
 
     <!--- Background of the Activity -->
 
     <ImageView
-        android:id="@+id/background_image"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:alpha="0.4"

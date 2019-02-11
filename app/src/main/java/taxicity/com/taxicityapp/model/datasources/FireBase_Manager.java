@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -16,12 +17,19 @@ import java.util.concurrent.ExecutionException;
 
 import taxicity.com.taxicityapp.model.backend.ActionCallBack;
 import taxicity.com.taxicityapp.model.backend.BackEnd;
+import taxicity.com.taxicityapp.model.backend.NotifyDataChange;
 import taxicity.com.taxicityapp.model.entities.Trip;
 
+
+/**
+ * Implementation of the BackEnd with FireBase Datasource
+ */
 public class FireBase_Manager implements BackEnd<String> {
+    //Database Reference
     private static FirebaseDatabase db = FirebaseDatabase.getInstance();
     private static DatabaseReference refTrips = db.getReference("Trips");
-    private final String TAG = "firebaseManager";
+    private static ChildEventListener tripRefChildEventListener;
+    private static final String TAG = "firebase_manager";
 
 
     public void addTrip(final Trip trip, final ActionCallBack<String> action) {
@@ -45,7 +53,7 @@ public class FireBase_Manager implements BackEnd<String> {
             @Override
             public void onFailure(@NonNull Exception e) {
                 action.onFailure(e);
-                action.onProgress("Failed to add the trips...", 100);
+                action.onProgress("Failed to add the trip...", 100);
             }
         });
     }
@@ -85,25 +93,26 @@ public class FireBase_Manager implements BackEnd<String> {
 
 
     public void updateTrip(final Trip toUpdate, final ActionCallBack<String> action) {
-        final String key = toUpdate.getKey();
-
         Log.e(TAG, "Update Started");
-        removeTrip(key, new ActionCallBack<String>() {
-            @Override
-            public void onSuccess(String obj) {
-                addTrip(toUpdate, action);
-            }
+        Log.i(TAG, "updateTrip - key :" + toUpdate.getKey());
+        Log.i(TAG, "updateTrip: - Destination :" + toUpdate.getDestinationAddress());
 
+        final String finalIdTrip = toUpdate.getKey();
+        refTrips.child(finalIdTrip).setValue(toUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onFailure(Exception exception) {
-                action.onFailure(exception);
+            public void onSuccess(Void aVoid) {
+                action.onSuccess(finalIdTrip);
+                action.onProgress("Adding trip in progress...", 100);
             }
-
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onProgress(String status, double percent) {
-                action.onProgress(status, percent);
+            public void onFailure(@NonNull Exception e) {
+                action.onFailure(e);
+                action.onProgress("Adding trip in progress...", 100);
             }
         });
+
+
     }
 
     @Override
@@ -132,5 +141,67 @@ public class FireBase_Manager implements BackEnd<String> {
         });
 
     }
+
+    public void notifyTripChanged(final String aKey, final NotifyDataChange<Trip> notifyDataChange) {
+
+        Log.i(TAG, "notifyTripChanged: ");
+        if (notifyDataChange != null) {
+
+            if (tripRefChildEventListener != null) {
+                notifyDataChange.onFailure(new Exception("First unNotify  list"));
+                return;
+            }
+
+            tripRefChildEventListener = new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    Trip trip = dataSnapshot.getValue(Trip.class);
+                    String key = dataSnapshot.getKey();
+                    trip.setKey(key);
+
+                    //Check if is the current key.
+                    if (aKey.equals(key))
+                        notifyDataChange.OnDataChanged(trip);
+
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    Trip trip = dataSnapshot.getValue(Trip.class);
+                    String key = dataSnapshot.getKey();
+                    trip.setKey(key);
+
+
+                    //Check if is the current key.
+                    if (aKey.equals(key))
+                        notifyDataChange.OnDataChanged(trip);
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    notifyDataChange.onFailure(databaseError.toException());
+                }
+            };
+
+            refTrips.addChildEventListener(tripRefChildEventListener);
+        }
+
+    }
+
+    public void stopNotifyTripChanged() {
+        if (tripRefChildEventListener != null) {
+            refTrips.removeEventListener(tripRefChildEventListener);
+            tripRefChildEventListener = null;
+        }
+    }
+
 
 }
