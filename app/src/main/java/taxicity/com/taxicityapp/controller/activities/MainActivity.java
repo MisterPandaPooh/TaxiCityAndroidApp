@@ -11,6 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import taxicity.com.taxicityapp.R;
 import taxicity.com.taxicityapp.controller.fragments.WelcomeFragment;
 
+/**
+ *  © Copyrights
+ *  Netanel COHEN SOLAL - 1444669
+ *  Raphael Amar - 1186865
+ */
 public class MainActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE_ASK_PERMISSIONS = 522;
